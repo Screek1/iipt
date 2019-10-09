@@ -15,7 +15,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::find(1);
+
+        $user = new App\User();
+        $user->password = Hash::make('qwerty1234');
+        $user->email = 'admin@admin.ru';
+        $user->name = 'Admin';
+        $user->save();
 
         $user->assignRole('Admin');
     }
