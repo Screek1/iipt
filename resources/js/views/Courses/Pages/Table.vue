@@ -25,7 +25,7 @@
                             <div class="card text-center col-md-12 align-items-stretch">
                                 <img :src="item.img"
                                      class="card-img-top"
-                                     style="height: 10rem; object-fit: cover;"
+                                     style="height: 10rem; object-fit: cover; padding-top: 1px;"
                                      alt="">
                                 <div class="card-block">
                                     <h5 class="card-title p-2 m-1">{{ item.name }} </h5>
