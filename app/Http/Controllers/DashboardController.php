@@ -100,8 +100,8 @@ class DashboardController extends Controller
         $id = $request->get('id');
         $role = $request->get('role');
         if ($id) {
-            $user = User::with('roles')->find($id);
-            $user->assignRole("{$role}");
+            $user = User::find($id);
+            $user->assignRole($role);
             return true;
         }
         return response()->json(['message' => 'User id is missing!']);
