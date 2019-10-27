@@ -52,7 +52,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -79,26 +79,30 @@ class CourseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request)
     {
-    $id = $request->get('id');
+        $is_admin = false;
+        $id = $request->get('id');
         if ($id) {
+            if (auth()->check()) {
+                $is_admin = auth()->user()->hasRole('Admin');
+            }
             $course = Course::find($id);
             return response()->json([
                 'course' => $course->toArray(),
-                'is_admin' => auth()->user()->hasRole('Admin') ?? false,
+                'is_admin' => $is_admin,
             ]);
         }
-    return response()->json(['message' => 'Course id is missing!'], 400);
+        return response()->json(['message' => 'Course id is missing!'], 400);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request)
@@ -117,8 +121,8 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -150,21 +154,21 @@ class CourseController extends Controller
         $page_size = $request->get('page_size') ?: 12;
         $current_page = $request->get('current_page') ?: 1;
         $search = $request->get('search');
-            if ($search) {
-                $courses = Course::orWhere('name', 'like', '%' . $search . '%')
-                    ->orWhere('author', 'like', '%' . $search . '%')
-                    ->orderBy('created_at', 'desc')
-                    ->paginate($page_size, '*', 'page', $current_page);
-                return response()->json([
-                    'courses' => $courses->toArray()]);
-            }
+        if ($search) {
+            $courses = Course::orWhere('name', 'like', '%' . $search . '%')
+                ->orWhere('author', 'like', '%' . $search . '%')
+                ->orderBy('created_at', 'desc')
+                ->paginate($page_size, '*', 'page', $current_page);
+            return response()->json([
+                'courses' => $courses->toArray()]);
+        }
         return response()->json(['message' => 'Search missing!'], 400);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)

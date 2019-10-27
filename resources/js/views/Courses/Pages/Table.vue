@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10 p-2">
+            <div class="col-md-12 p-2">
                 <div class="card bg-gradient-light h-100">
                     <div class="card-header">Курсы</div>
                     <div class="card-body d-inline-flex justify-content-between">
@@ -25,7 +25,7 @@
                             <div class="card text-center col-md-12 align-items-stretch">
                                 <img :src="item.img"
                                      class="card-img-top"
-                                     style="height: 10rem; object-fit: cover; padding-top: 1px;"
+                                     style="height: 15rem; object-fit: cover; padding-top: 1px;"
                                      alt="">
                                 <div class="card-block">
                                     <h5 class="card-title p-2 m-1">{{ item.name }} </h5>
@@ -63,21 +63,6 @@
                         :prev-link-class = "'page-link'"
                         :next-link-class = "'page-link'">
                     </paginate>
-                </div>
-            </div>
-            <div class="col-md-2 p-2">
-                <div class="card">
-                    <div class="card-header">Новинки</div>
-                    <div class="card-body text-center">
-                        <div class="row">
-                            <div class="col">IMG</div>
-                        </div>
-                        <div class="row">
-                            <div class="col">Название
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
