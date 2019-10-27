@@ -101,6 +101,9 @@ class DashboardController extends Controller
         $role = $request->get('role');
         if ($id) {
             $user = User::find($id);
+            $user->removeRole('Admin');
+            $user->removeRole('Maneger');
+            $user->removeRole('User');
             $user->assignRole($role);
             return true;
         }
