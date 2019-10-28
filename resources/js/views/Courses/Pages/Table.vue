@@ -48,7 +48,7 @@
                             </div>
                         </div>
                     </div>
-                    <paginate v-show="this.courses.to >= 0"
+                    <paginate v-show="this.courses.total > 12"
                         class="mt-2"
                         :page-count="+courses.last_page"
                         :page-range="3"
@@ -111,7 +111,6 @@
                     window.axios.post('courses/search', {search: this.search_word,})
                         .then((response) => {
                             this.courses = response.data.courses;
-                            console.log(this.courses.data.length)
                         });
                 } else {
                     this.init();

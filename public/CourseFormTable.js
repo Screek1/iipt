@@ -129,7 +129,6 @@ __webpack_require__.r(__webpack_exports__);
           search: this.search_word
         }).then(function (response) {
           _this3.courses = response.data.courses;
-          console.log(_this3.courses.data.length);
         });
       } else {
         this.init();
@@ -353,8 +352,8 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: this.courses.to >= 0,
-                  expression: "this.courses.to >= 0"
+                  value: this.courses.total > 12,
+                  expression: "this.courses.total > 12"
                 }
               ],
               staticClass: "mt-2",
