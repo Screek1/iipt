@@ -57,10 +57,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Add",
   data: function data() {
     return {
+      errors: {},
       model: {
         name: null,
         author: null,
@@ -82,6 +104,13 @@ __webpack_require__.r(__webpack_exports__);
         _this.$router.push({
           path: '/courses'
         });
+      })["catch"](function (error) {
+        if (error.response.status === 422) {
+          _this.errors = error.response.data.errors;
+          console.log(_this.errors);
+        }
+
+        console.log(_this.errors);
       });
     },
     init: function init() {
@@ -114,7 +143,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\ntextarea[data-v-9e62c120] {\n    resize: none;\n}\n", ""]);
+exports.push([module.i, "\ntextarea[data-v-9e62c120] {\n    resize: none;\n}\n.invalid-feedback[data-v-9e62c120] {\n    padding-left: 20px;\n    font-size: 16px;\n}\n", ""]);
 
 // exports
 
@@ -214,6 +243,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control m-2",
+                class: { "is-invalid": _vm.errors.name },
                 attrs: { type: "text", placeholder: "Название" },
                 domProps: { value: _vm.model.name },
                 on: {
@@ -226,6 +256,12 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _vm.errors.name
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(_vm._s(_vm.errors.name[0]))
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -236,6 +272,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control m-2",
+                class: { "is-invalid": _vm.errors.author },
                 attrs: { type: "text", placeholder: "Автор" },
                 domProps: { value: _vm.model.author },
                 on: {
@@ -248,6 +285,12 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _vm.errors.author
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(_vm._s(_vm.errors.author[0]))
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("textarea", {
                 directives: [
                   {
@@ -258,6 +301,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "textarea form-control m-2",
+                class: { "is-invalid": _vm.errors.description },
                 attrs: { rows: "4", placeholder: "Описание" },
                 domProps: { value: _vm.model.description },
                 on: {
@@ -270,6 +314,12 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _vm.errors.description
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(_vm._s(_vm.errors.description[0]))
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -280,6 +330,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control m-2",
+                class: { "is-invalid": _vm.errors.link },
                 attrs: { type: "text", placeholder: "Ссылка" },
                 domProps: { value: _vm.model.link },
                 on: {
@@ -292,6 +343,12 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
+              _vm.errors.link
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(_vm._s(_vm.errors.link[0]))
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -302,6 +359,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control m-2",
+                class: { "is-invalid": _vm.errors.img },
                 attrs: { type: "text", placeholder: "Картинка(ссылка)" },
                 domProps: { value: _vm.model.img },
                 on: {
@@ -312,7 +370,13 @@ var render = function() {
                     _vm.$set(_vm.model, "img", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors.img
+                ? _c("div", { staticClass: "invalid-feedback" }, [
+                    _vm._v(_vm._s(_vm.errors.img[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "row justify-content-end p-2" }, [
@@ -346,14 +410,15 @@ render._withStripped = true
 /*!**************************************************!*\
   !*** ./resources/js/views/Courses/Pages/Add.vue ***!
   \**************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Add_vue_vue_type_template_id_9e62c120_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Add.vue?vue&type=template&id=9e62c120&scoped=true& */ "./resources/js/views/Courses/Pages/Add.vue?vue&type=template&id=9e62c120&scoped=true&");
 /* harmony import */ var _Add_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Add.vue?vue&type=script&lang=js& */ "./resources/js/views/Courses/Pages/Add.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _Add_vue_vue_type_style_index_0_id_9e62c120_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Add.vue?vue&type=style&index=0&id=9e62c120&scoped=true&lang=css& */ "./resources/js/views/Courses/Pages/Add.vue?vue&type=style&index=0&id=9e62c120&scoped=true&lang=css&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Add_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Add_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _Add_vue_vue_type_style_index_0_id_9e62c120_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Add.vue?vue&type=style&index=0&id=9e62c120&scoped=true&lang=css& */ "./resources/js/views/Courses/Pages/Add.vue?vue&type=style&index=0&id=9e62c120&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -385,7 +450,7 @@ component.options.__file = "resources/js/views/Courses/Pages/Add.vue"
 /*!***************************************************************************!*\
   !*** ./resources/js/views/Courses/Pages/Add.vue?vue&type=script&lang=js& ***!
   \***************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

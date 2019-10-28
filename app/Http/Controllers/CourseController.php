@@ -58,11 +58,11 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
-            'author' => 'required|string',
+            'name' => 'required|string|max:100',
+            'author' => 'required|string|max:100',
             'description' => 'required|string',
-            'link' => 'required|string',
-            'img' => 'required|string',
+            'link' => 'required|string|max:200',
+            'img' => 'required|string|max:200',
         ]);
         $course = new Course([
             'name' => $request->get('name'),

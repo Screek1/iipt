@@ -11,27 +11,48 @@
                     <div class="col-10 justify-content-center m-auto">
                         <div class="row">
                             <input class="form-control m-2"
+                                   :class="{ 'is-invalid': errors.name }"
                                    v-model="model.name"
                                    type="text"
                                    placeholder="Название">
+                            <div v-if="errors.name"
+                                 class="invalid-feedback"
+                            >{{errors.name[0]}}</div>
                             <input class="form-control m-2"
+                                   :class="{ 'is-invalid': errors.author }"
                                    v-model="model.author"
                                    type="text"
                                    placeholder="Автор">
+                            <div v-if="errors.author"
+                                 class="invalid-feedback"
+                            >{{errors.author[0]}}</div>
                             <textarea class="textarea form-control m-2"
+                                      :class="{ 'is-invalid': errors.description }"
                                       v-model="model.description"
                                       rows="4"
-                                      placeholder="Описание"></textarea>
+                                      placeholder="Описание"
+                            ></textarea>
+                            <div v-if="errors.description"
+                                 class="invalid-feedback"
+                            >{{errors.description[0]}}</div>
                             <input class="form-control m-2"
+                                   :class="{ 'is-invalid': errors.link }"
                                    v-model="model.link"
                                    type="text"
                                    placeholder="Ссылка"
                             >
+                            <div v-if="errors.link"
+                                 class="invalid-feedback"
+                            >{{errors.link[0]}}</div>
                             <input class="form-control m-2"
+                                   :class="{ 'is-invalid': errors.img }"
                                    v-model="model.img"
                                    type="text"
                                    placeholder="Картинка(ссылка)"
                             >
+                            <div v-if="errors.img"
+                                 class="invalid-feedback"
+                            >{{errors.img[0]}}</div>
                         </div>
                         <div class="row justify-content-end p-2">
                             <button
@@ -51,6 +72,7 @@
         name: "Add",
         data() {
             return {
+                errors: {},
                 model: {
                     name: null,
                     author: null,
@@ -69,7 +91,13 @@
                 window.axios.post(window.location.origin + '/courses/store', this.model)
                     .then((response) => {
                         this.$router.push({ path: '/courses' });
-                    });
+                    }).catch(error => {
+                    if (error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                        console.log(this.errors)
+                    }
+                    console.log(this.errors)
+                });
             },
             init() {
               window.axios.post(window.location.origin + '/courses/create')
@@ -88,5 +116,9 @@
 <style scoped>
     textarea {
         resize: none;
+    }
+    .invalid-feedback {
+        padding-left: 20px;
+        font-size: 16px;
     }
 </style>

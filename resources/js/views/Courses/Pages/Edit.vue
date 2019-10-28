@@ -13,40 +13,60 @@
                     <div class="col-10 justify-content-center m-auto">
                         <div class="form-row">
                             <input class="form-control m-2"
+                                   :class="{ 'is-invalid': errors.name }"
                                    v-model="course.name"
                                    label="name"
                                    placeholder="Название"
                             >
                             </input>
+                            <div v-if="errors.name"
+                                 class="invalid-feedback"
+                            >{{errors.name[0]}}</div>
                         </div>
                         <div class="form-row">
                             <input class="form-control m-2"
+                                   :class="{ 'is-invalid': errors.author }"
                                    v-model="course.author"
                                    name="author"
                                    placeholder="Автор"
                             >
+                            <div v-if="errors.author"
+                                 class="invalid-feedback"
+                            >{{errors.author[0]}}</div>
                         </div>
                         <div class="form-row">
                         <textarea class="textarea form-control m-2"
+                                  :class="{ 'is-invalid': errors.description }"
                                   v-model="course.description"
                                   label="description"
                                   rows="4"
                                   placeholder="Описание">
                         </textarea>
+                            <div v-if="errors.description"
+                                 class="invalid-feedback"
+                            >{{errors.description[0]}}</div>
                         </div>
                         <div class="form-row">
                             <input class="form-control m-2"
+                                   :class="{ 'is-invalid': errors.link }"
                                    v-model="course.link"
                                    label="link"
                                    placeholder="Ссылка"
                             >
+                            <div v-if="errors.link"
+                                 class="invalid-feedback"
+                            >{{errors.link[0]}}</div>
                         </div>
                         <div class="form-row">
                             <input class="form-control m-2"
+                                   :class="{ 'is-invalid': errors.img }"
                                    v-model="course.img"
                                    label="img"
                                    placeholder="Картинка(ссылка)"
                             >
+                            <div v-if="errors.img"
+                                 class="invalid-feedback"
+                            >{{errors.img[0]}}</div>
                         </div>
                     </div>
                     <div class="card-body d-inline-flex justify-content-between">
@@ -69,6 +89,7 @@
         name: "Edit",
         data() {
             return {
+                errors: {},
                 course: [],
                 is_admin: false,
             }
@@ -93,7 +114,12 @@
                 window.axios.post(window.location.origin + '/courses/update', this.course)
                     .then((response) => {
                         this.$router.push({path: '/courses'});
-                    });
+                    }).catch(error => {
+                    if (error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                        console.log(this.errors)
+                    }
+                });
             },
             deleteCourse() {
                 window.axios.post(window.location.origin + '/courses/destroy', {id: this.$route.params.id})
@@ -106,5 +132,8 @@
 </script>
 
 <style scoped>
-
+    .invalid-feedback {
+        padding-left: 20px;
+        font-size: 16px;
+    }
 </style>
