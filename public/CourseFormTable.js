@@ -353,8 +353,8 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: this.courses.data.length >= 0,
-                  expression: "this.courses.data.length >= 0"
+                  value: this.courses.to >= 0,
+                  expression: "this.courses.to >= 0"
                 }
               ],
               staticClass: "mt-2",

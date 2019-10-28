@@ -48,7 +48,7 @@
                             </div>
                         </div>
                     </div>
-                    <paginate v-show="this.courses.data.length >= 0"
+                    <paginate v-show="this.courses.to >= 0"
                         class="mt-2"
                         :page-count="+courses.last_page"
                         :page-range="3"
