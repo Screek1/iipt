@@ -22,6 +22,17 @@
                                <p><span class="font-weight-bold">Автор:</span> {{course.author}}</p>
                                <p><span class="font-weight-bold">Описание:</span> {{course.description}}</p>
                            </div>
+                           <div class="row align-items-center w-100 pb-2">
+                               <div class="col-6">
+                                   <a onclick="history.back(-1)" class="btn btn-outline-secondary"
+                                   >Назад</a>
+                               </div>
+                               <div class="col-6">
+                                   <a :href='course.link'
+                                      class="btn btn-outline-secondary"
+                                   >Сайт курса</a>
+                               </div>
+                           </div>
                        </div>
                     </div>
                     <div class="card-body d-inline-flex justify-content-end">

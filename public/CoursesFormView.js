@@ -47,6 +47,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Add",
   data: function data() {
@@ -148,7 +159,26 @@ var render = function() {
                     ]),
                     _vm._v(" " + _vm._s(_vm.course.description))
                   ])
-                ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "row align-items-center w-100 pb-2" },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-6" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-outline-secondary",
+                          attrs: { href: _vm.course.link }
+                        },
+                        [_vm._v("Сайт курса")]
+                      )
+                    ])
+                  ]
+                )
               ]
             )
           ]),
@@ -181,7 +211,23 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-6" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-outline-secondary",
+          attrs: { onclick: "history.back(-1)" }
+        },
+        [_vm._v("Назад")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
