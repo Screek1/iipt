@@ -107,10 +107,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this.errors = error.response.data.errors;
-          console.log(_this.errors);
         }
-
-        console.log(_this.errors);
       });
     },
     init: function init() {
