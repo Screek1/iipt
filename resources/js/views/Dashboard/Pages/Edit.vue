@@ -43,6 +43,7 @@
                         if (response.data.is_admin === false) {
                             location = ('/courses')
                         } else {
+                            console.log(response.data)
                             this.is_admin = response.data.is_admin
                             this.users = response.data.users
                             this.roles = response.data.roles
