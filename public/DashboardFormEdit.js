@@ -54,13 +54,10 @@ __webpack_require__.r(__webpack_exports__);
         if (response.data.is_admin === false) {
           location = '/courses';
         } else {
-          console.log(response.data);
           _this.is_admin = response.data.is_admin;
           _this.users = response.data.users;
           _this.roles = response.data.roles;
         }
-
-        console.log(_this.roles);
       });
     },
     changeRole: function changeRole(id, role) {
