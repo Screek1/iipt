@@ -4,6 +4,7 @@
     "/CourseFormTable.js": "/CourseFormTable.js",
     "/CoursesFormAdd.js": "/CoursesFormAdd.js",
     "/CoursesFormEdit.js": "/CoursesFormEdit.js",
+    "/CoursesFormLiked.js": "/CoursesFormLiked.js",
     "/CoursesFormView.js": "/CoursesFormView.js",
     "/DashboardFormAdd.js": "/DashboardFormAdd.js",
     "/DashboardFormEdit.js": "/DashboardFormEdit.js",

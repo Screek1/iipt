@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"CourseFormTable":"CourseFormTable","CoursesFormAdd":"CoursesFormAdd","CoursesFormEdit":"CoursesFormEdit","CoursesFormView":"CoursesFormView","DashboardFormAdd":"DashboardFormAdd","DashboardFormEdit":"DashboardFormEdit","DashboardFormTable":"DashboardFormTable","DashboardFormView":"DashboardFormView"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"CourseFormTable":"CourseFormTable","CoursesFormAdd":"CoursesFormAdd","CoursesFormEdit":"CoursesFormEdit","CoursesFormLiked":"CoursesFormLiked","CoursesFormView":"CoursesFormView","DashboardFormAdd":"DashboardFormAdd","DashboardFormEdit":"DashboardFormEdit","DashboardFormTable":"DashboardFormTable","DashboardFormView":"DashboardFormView"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -55315,6 +55315,10 @@ var View = function View() {
   return __webpack_require__.e(/*! import() | CoursesFormView */ "CoursesFormView").then(__webpack_require__.bind(null, /*! ./Pages/View.vue */ "./resources/js/views/Courses/Pages/View.vue"));
 };
 
+var Liked = function Liked() {
+  return __webpack_require__.e(/*! import() | CoursesFormLiked */ "CoursesFormLiked").then(__webpack_require__.bind(null, /*! ./Pages/Liked.vue */ "./resources/js/views/Courses/Pages/Liked.vue"));
+};
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
@@ -55330,6 +55334,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: '/courses/add',
     component: Add
+  }, {
+    path: '/courses/liked',
+    component: Liked
   }]
 }));
 

@@ -4,6 +4,7 @@ const Table = () => import(/* webpackChunkName: "CourseFormTable" */ './Pages/Ta
 const Edit = () => import(/* webpackChunkName: "CoursesFormEdit" */ './Pages/Edit.vue');
 const Add = () => import(/* webpackChunkName: "CoursesFormAdd" */ './Pages/Add.vue');
 const View = () => import(/* webpackChunkName: "CoursesFormView" */ './Pages/View.vue');
+const Liked = () => import(/*webpackChunkName: "CoursesFormLiked"*/ './Pages/Liked.vue');
 
 Vue.use(Router);
 
@@ -26,5 +27,9 @@ export default new Router({
             path: '/courses/add',
             component: Add,
         },
+        {
+            path: '/courses/liked',
+            component: Liked
+        }
     ],
 });

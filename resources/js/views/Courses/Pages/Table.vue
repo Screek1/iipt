@@ -8,6 +8,10 @@
                         <router-link to="/courses"
                                      class="btn btn-primary ml-3 mr-3">Все курсы
                         </router-link>
+                        <router-link v-if="is_auth"
+                                     to="/courses/liked"
+                                     class="btn btn-primary ml-3 mr-3">Понравилось
+                        </router-link>
                         <router-link v-show="is_admin"
                                      to="/courses/add"
                                      class="btn btn-primary ml-3 mr-3">Добавить курс
@@ -43,13 +47,20 @@
                                             class="btn btn-primary"
                                         >Сайт
                                         </a>
+                                        <button
+                                            v-if="is_auth"
+                                            class="btn ml-3 mr-3"
+                                            :class="(item.liked) ? 'btn-danger' : 'btn-secondary'"
+                                            @click="like(item.id)"
+                                        >Лайк</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <paginate v-show="this.courses.total > 12"
-                        class="mt-2"
+                              :value="this.page"
+                              class="mt-2"
                         :page-count="+courses.last_page"
                         :page-range="3"
                         :prev-text="'Prev'"
@@ -77,34 +88,39 @@
                 sortKey: 'name',
                 reverse: false,
                 search_word: '',
+                page: 1,
                 courses: [],
+                is_auth: false,
                 is_admin: false,
             }
         },
         mounted() {
+            this.setupPage();
             this.init();
         },
         methods: {
             init() {
-                window.axios.post('courses/items')
+                window.axios.post('courses/items?page=' + this.page)
                     .then((response) => {
                         this.is_admin = response.data.is_admin;
+                        this.is_auth = response.data.is_auth;
                         this.courses = response.data.courses;
                 });
             },
             clickCallback: function(pageNum) {
                 if (this.search !== '' ) {
-                    window.axios.post('courses/items?page=' + pageNum, {current_page: pageNum})
+                    window.axios.post('courses/items?page=' + pageNum)
                         .then((response) => {
                             this.courses = response.data.courses;
                         });
                 } else {
-                    window.axios.post('courses/search?page=' + pageNum, {current_page: pageNum, search: this.search_word})
+                    window.axios.post('courses/search?page=' + pageNum + '&search=' + this.search_word)
                         .then((response) => {
                             this.courses = response.data.courses;
 
                         });
                 }
+                this.setupState(pageNum)
             },
             searchCourse() {
                 if (this.search_word !== '') {
@@ -115,6 +131,25 @@
                 } else {
                     this.init();
                 }
+            },
+            setupState(page) {
+                this.page = page
+                history.pushState({page: page}, 'title', '?page=' + page)
+            },
+            setupPage() {
+                this.page = (history.state !== null)
+                    ? (history.state.page !== undefined) ? history.state.page : 1
+                    : 1;
+            },
+            like(id) {
+                window.axios.post('courses/like', {course_id: id,})
+                    .then(() => {
+                        this.courses.data.filter(function (item) {
+                            if (item.id == id) {
+                                item.liked = !item.liked
+                            }
+                        })
+                    });
             }
         },
     }

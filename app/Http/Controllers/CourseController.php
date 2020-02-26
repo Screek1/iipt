@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Helpers\Permission;
-use App\User;
+use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,10 +22,27 @@ class CourseController extends Controller
 
     public function getCourses(Request $request)
     {
-        $page_size = $request->get('page_size') ?: 12;
-        $current_page = $request->get('current_page') ?: 1;
-        return Course::orderBy('created_at', 'desc')
-            ->paginate($page_size, '*', 'page', $current_page);
+        $currentPage = $request->input('page') ?: 1;
+        $pageSize = $request->get('page_size') ?: 12;
+        $courses = Course::with('likes')->orderBy('created_at', 'desc')
+            ->paginate($pageSize, '*', 'page', $currentPage);
+        return $courses;
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function getLikedCourses(Request $request)
+    {
+        $courses = [];
+        $coursesCollection = Like::with('course')->where('user_id', Auth::id())->get();
+        foreach ($coursesCollection as $item) {
+            $courses[] = $item->course;
+        }
+        return response()->json([
+            'courses' => $courses
+        ]);
     }
 
     public function courses(Request $request)
@@ -33,7 +50,23 @@ class CourseController extends Controller
         return response()->json([
             'courses' => $this->getCourses($request)->toArray(),
             'is_admin' => Permission::isAdmin(),
+            'is_auth' => Auth::check(),
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function like(Request $request)
+    {
+        $like = Like::where('user_id', Auth::id())->where('course_id', $request->get('course_id'))->first();
+        if (!isset($like)) {
+            Like::create(['course_id' => $request->get('course_id'), 'user_id' => Auth::id()]);
+        } else {
+            $like->delete();
+        }
+        return response(['message' => 'Success']);
     }
 
     /**

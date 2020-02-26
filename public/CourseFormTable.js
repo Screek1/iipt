@@ -80,6 +80,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Table",
   data: function data() {
@@ -87,19 +98,23 @@ __webpack_require__.r(__webpack_exports__);
       sortKey: 'name',
       reverse: false,
       search_word: '',
+      page: 1,
       courses: [],
+      is_auth: false,
       is_admin: false
     };
   },
   mounted: function mounted() {
+    this.setupPage();
     this.init();
   },
   methods: {
     init: function init() {
       var _this = this;
 
-      window.axios.post('courses/items').then(function (response) {
+      window.axios.post('courses/items?page=' + this.page).then(function (response) {
         _this.is_admin = response.data.is_admin;
+        _this.is_auth = response.data.is_auth;
         _this.courses = response.data.courses;
       });
     },
@@ -107,19 +122,16 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       if (this.search !== '') {
-        window.axios.post('courses/items?page=' + pageNum, {
-          current_page: pageNum
-        }).then(function (response) {
+        window.axios.post('courses/items?page=' + pageNum).then(function (response) {
           _this2.courses = response.data.courses;
         });
       } else {
-        window.axios.post('courses/search?page=' + pageNum, {
-          current_page: pageNum,
-          search: this.search_word
-        }).then(function (response) {
+        window.axios.post('courses/search?page=' + pageNum + '&search=' + this.search_word).then(function (response) {
           _this2.courses = response.data.courses;
         });
       }
+
+      this.setupState(pageNum);
     },
     searchCourse: function searchCourse() {
       var _this3 = this;
@@ -133,6 +145,28 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.init();
       }
+    },
+    setupState: function setupState(page) {
+      this.page = page;
+      history.pushState({
+        page: page
+      }, 'title', '?page=' + page);
+    },
+    setupPage: function setupPage() {
+      this.page = history.state !== null ? history.state.page !== undefined ? history.state.page : 1 : 1;
+    },
+    like: function like(id) {
+      var _this4 = this;
+
+      window.axios.post('courses/like', {
+        course_id: id
+      }).then(function () {
+        _this4.courses.data.filter(function (item) {
+          if (item.id == id) {
+            item.liked = !item.liked;
+          }
+        });
+      });
     }
   }
 });
@@ -226,6 +260,17 @@ var render = function() {
                   },
                   [_vm._v("Все курсы\n                    ")]
                 ),
+                _vm._v(" "),
+                _vm.is_auth
+                  ? _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-primary ml-3 mr-3",
+                        attrs: { to: "/courses/liked" }
+                      },
+                      [_vm._v("Понравилось\n                    ")]
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "router-link",
@@ -335,7 +380,25 @@ var render = function() {
                                   "Сайт\n                                    "
                                 )
                               ]
-                            )
+                            ),
+                            _vm._v(" "),
+                            _vm.is_auth
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn ml-3 mr-3",
+                                    class: item.liked
+                                      ? "btn-danger"
+                                      : "btn-secondary",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.like(item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Лайк")]
+                                )
+                              : _vm._e()
                           ],
                           1
                         )
@@ -358,6 +421,7 @@ var render = function() {
               ],
               staticClass: "mt-2",
               attrs: {
+                value: this.page,
                 "page-count": +_vm.courses.last_page,
                 "page-range": 3,
                 "prev-text": "Prev",

@@ -43,6 +43,6 @@ class CourseControllerTest extends TestCase
             'email' => 'admin@admin.com',
             'password' => 'q9seswAg'
         ]);
-        return User::find(1);
+        return $user;
     }
 }
